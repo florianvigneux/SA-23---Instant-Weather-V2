@@ -9,39 +9,34 @@ const infoOptions = document.getElementById("info-options");
 const themeToggle = document.getElementById("theme-toggle");
 const body = document.body;
 const themeMenu = document.getElementById("theme-menu");
-
+const cityTitle = document.getElementById("city-title");
 const meteoToken = "0a3ada5923342f82584a314a1455bc8ade87f59a2b909ac3fbd1cc44f232a24a";
 let currentCityCode = null;
 let currentForecast = [];
+let userTheme = null;
+
+// =================== Image de fond ===================
+window.addEventListener("DOMContentLoaded", () => {
+  const bg = document.getElementById('bg-image');
+  if (!bg) return;
+  const keywords = [
+    "weather", "rain", "storm", "clouds", "fog", "snow", "sunny", "wind", "thunderstorm", "sky"
+  ];
+  const random = keywords[Math.floor(Math.random() * keywords.length)];
+  const url = `https://source.unsplash.com/random/1600x900/?${random},weather`;
+  bg.style.backgroundImage = `url('${url}')`;
+});
 
 // =================== Thème ===================
-themeToggle.addEventListener("click", (e) => {
-  e.stopPropagation();
-  themeMenu.classList.toggle("hidden");
-  updateThemeMenuSelection();
-});
-
-// Ferme le menu si on clique ailleurs
-document.addEventListener("click", () => {
-  themeMenu.classList.add("hidden");
-});
-
-// Gestion du choix du thème
-themeMenu.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    const selected = e.target.getAttribute("data-theme");
-    if (selected === "auto") {
-      userTheme = null;
-    } else {
-      userTheme = selected;
-    }
-    applyTheme();
-    updateThemeMenuSelection();
-    themeMenu.classList.add("hidden");
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+function applyTheme() {
+  if (userTheme === "dark" || (userTheme === null && prefersDark.matches)) {
+    body.classList.add("dark-mode");
+  } else {
+    body.classList.remove("dark-mode");
   }
-});
-
-
+  updateThemeMenuSelection();
+}
 function updateThemeMenuSelection() {
   document.querySelectorAll('#theme-menu button').forEach(btn => {
     btn.classList.remove('selected');
@@ -53,24 +48,24 @@ function updateThemeMenuSelection() {
     }
   });
 }
-
-// Détection du thème système
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-let userTheme = null; // null = suit le système, "dark" ou "light" = forcé
-
-function applyTheme() {
-  if (userTheme === "dark" || (userTheme === null && prefersDark.matches)) {
-    body.classList.add("dark-mode");
-  } else {
-    body.classList.remove("dark-mode");
-  }
+themeToggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  themeMenu.classList.toggle("hidden");
   updateThemeMenuSelection();
-}
-
-// Applique le thème au chargement
+});
+document.addEventListener("click", () => {
+  themeMenu.classList.add("hidden");
+});
+themeMenu.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    const selected = e.target.getAttribute("data-theme");
+    userTheme = selected === "auto" ? null : selected;
+    applyTheme();
+    updateThemeMenuSelection();
+    themeMenu.classList.add("hidden");
+  }
+});
 applyTheme();
-
-// Réagit aux changements système si l'utilisateur n'a pas forcé
 prefersDark.addEventListener("change", () => {
   if (userTheme === null) applyTheme();
 });
@@ -90,7 +85,6 @@ postalInput.addEventListener("input", async (e) => {
     cityList.innerHTML = "";
   }
 });
-
 function displayCities(cities) {
   cityList.innerHTML = "";
   cities.forEach(city => {
@@ -98,10 +92,9 @@ function displayCities(cities) {
     li.textContent = city.nom;
     li.setAttribute("tabindex", "0");
     li.addEventListener("click", () => {
-      // Masquer le champ de recherche et afficher le titre
       postalInput.style.display = "none";
-      document.getElementById("city-title").textContent = `Prévisions météo pour ${city.nom}`;
-      document.getElementById("city-title").style.display = "block";
+      cityTitle.textContent = `Prévisions météo pour ${city.nom}`;
+      cityTitle.style.display = "block";
       getWeather(city.code);
     });
     cityList.appendChild(li);
@@ -127,33 +120,30 @@ async function getWeather(insee) {
 function updateForecast() {
   const days = parseInt(dayRange.value);
   dayCountDisplay.textContent = days;
-  // Pluriel dynamique
   const label = document.querySelector('label[for="day-range"]');
   if (label) {
     label.innerHTML = `Prévisions : <span id="day-count">${days}</span> jour${days > 1 ? "s" : ""}`;
   }
   forecastContainer.innerHTML = "";
-
   for (let i = 0; i < days; i++) {
     const day = currentForecast[i];
     const card = document.createElement("div");
     card.className = "forecast-card";
-
     const icon = document.createElement("img");
     icon.src = `https://img.icons8.com/color/96/000000/${getIconName(day.weather)}.png`;
     icon.alt = "Icône météo";
     card.appendChild(icon);
-
-    const temp = document.createElement("p");
-    temp.textContent = `Température : ${day.tmin}°C - ${day.tmax}°C`;
+    const date = document.createElement("div");
+    date.textContent = new Date(day.datetime).toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+    card.appendChild(date);
+    const temp = document.createElement("div");
+    temp.textContent = `Min : ${day.tmin}°C / Max : ${day.tmax}°C`;
     card.appendChild(temp);
-
-    // Données supplémentaires
     document.querySelectorAll("#info-options input:checked").forEach(opt => {
-      const info = document.createElement("p");
+      const info = document.createElement("div");
       switch (opt.value) {
         case "coords":
-          info.textContent = `Coordonnées : ${day.latitude}, ${day.longitude}`;
+          info.textContent = `Lat: ${day.latitude}, Lon: ${day.longitude}`;
           break;
         case "rain":
           info.textContent = `Pluie : ${day.rr10} mm`;
@@ -167,15 +157,12 @@ function updateForecast() {
       }
       card.appendChild(info);
     });
-
     forecastContainer.appendChild(card);
   }
 }
 
-// =================== Slider ===================
+// =================== Slider & Options ===================
 dayRange.addEventListener("input", updateForecast);
-
-// =================== Cases à cocher ===================
 document.querySelectorAll("#info-options input").forEach(checkbox => {
   checkbox.addEventListener("change", updateForecast);
 });
@@ -193,7 +180,7 @@ function getIconName(code) {
   return map[code] || "partly-cloudy-day";
 }
 
-// Rafraîchit la page quand on clique sur le logo "Instant Weather"
+// =================== Logo cliquable ===================
 document.querySelector('.logo').addEventListener('click', () => {
   window.location.reload();
 });

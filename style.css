@@ -50,8 +50,8 @@ body {
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centre verticalement */
-  align-items: center;     /* centre horizontalement */
+  justify-content: center;
+  align-items: center;
   min-height: 0;
 }
 
@@ -112,7 +112,7 @@ body.dark-mode #main-header {
 #theme-menu button {
   background: none;
   border: none;
-  padding: 0.75rem 0.75rem; /* réduit le padding horizontal */
+  padding: 0.75rem 0.75rem;
   text-align: left;
   font-size: 1rem;
   cursor: pointer;
@@ -185,9 +185,9 @@ body.dark-mode #theme-menu button.selected {
   background-color: var(--gray-100);
   border-radius: 5px;
   margin: 0.25rem auto;
-  width: 90%;              /* Largeur uniforme */
-  max-width: 350px;        /* Largeur max pour éviter trop grand */
-  min-width: 220px;        /* Largeur min pour éviter trop petit */
+  width: 90%;
+  max-width: 350px;
+  min-width: 220px;
   box-sizing: border-box;
   color: var(--text-dark);
   transition: background 0.2s;
@@ -248,8 +248,8 @@ body.dark-mode #city-list li:hover {
 }
 
 body.dark-mode .forecast-card {
-  background: var(--gray-800);           /* fond plus clair pour ressortir */
-  border: 1.5px solid var(--gray-500);   /* bordure claire pour contraste */
+  background: var(--gray-800);
+  border: 1.5px solid var(--gray-500);
   color: var(--text-light);
 }
 
