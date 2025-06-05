@@ -35,6 +35,25 @@ body.dark-mode {
   color: var(--text-light);
 }
 
+/* Layout pour coller le footer en bas */
+html, body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 /* ===================== */
 /*        HEADER         */
 /* ===================== */
