@@ -98,6 +98,10 @@ function displayCities(cities) {
     li.textContent = city.nom;
     li.setAttribute("tabindex", "0");
     li.addEventListener("click", () => {
+      // Masquer le champ de recherche et afficher le titre
+      postalInput.style.display = "none";
+      document.getElementById("city-title").textContent = `Prévisions météo pour ${city.nom}`;
+      document.getElementById("city-title").style.display = "block";
       getWeather(city.code);
     });
     cityList.appendChild(li);
@@ -188,3 +192,8 @@ function getIconName(code) {
   };
   return map[code] || "partly-cloudy-day";
 }
+
+// Rafraîchit la page quand on clique sur le logo "Instant Weather"
+document.querySelector('.logo').addEventListener('click', () => {
+  window.location.reload();
+});

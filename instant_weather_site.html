@@ -14,7 +14,7 @@
 
 <body>
   <header id="main-header">
-    <div class="logo">Instant Weather</div>
+    <div class="logo" style="cursor:pointer;">Instant Weather</div>
     <div class="header-controls">
       <button id="theme-toggle" aria-label="Changer le thème">
         <i class="bi bi-moon-stars-fill"></i>
@@ -33,6 +33,7 @@
   <main id="main-content">
     <section id="search-section">
       <input type="text" id="postal-code" placeholder="Entrez un code postal" aria-label="Code postal" />
+      <span id="city-title" style="display:none; font-size:1.3rem; font-weight:bold; margin-bottom:1rem;"></span>
       <ul id="city-list" aria-label="Liste des villes"></ul>
     </section>
     <section id="weather-section" class="hidden">

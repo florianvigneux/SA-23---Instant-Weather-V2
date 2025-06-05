@@ -179,16 +179,20 @@ body.dark-mode #theme-menu button.selected {
 }
 
 #city-list li {
-  padding: 0.5rem;
+  padding: 0.75rem 1.5rem;
   border-bottom: 1px solid var(--gray-300);
   cursor: pointer;
   background-color: var(--gray-100);
   border-radius: 5px;
   margin: 0.25rem auto;
-  width: 100%;
+  width: 90%;              /* Largeur uniforme */
+  max-width: 350px;        /* Largeur max pour éviter trop grand */
+  min-width: 220px;        /* Largeur min pour éviter trop petit */
   box-sizing: border-box;
   color: var(--text-dark);
   transition: background 0.2s;
+  display: block;
+  text-align: center;
 }
 
 #city-list li:hover {
