@@ -1,0 +1,353 @@
+/* ===================== */
+/*        PALETTE        */
+/* ===================== */
+:root {
+  --bg-light: #f8f9fa;
+  --bg-dark: #212529;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* ===================== */
+/*      BASE & BODY      */
+/* ===================== */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+/* ===================== */
+/*        HEADER         */
+/* ===================== */
+#main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--gray-200);
+  border-bottom: 1px solid var(--gray-300);
+}
+
+body.dark-mode #main-header {
+  background-color: var(--gray-800);
+  border-color: var(--gray-700);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.header-controls button,
+.header-controls a {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ===================== */
+/*      THEME MENU       */
+/* ===================== */
+#theme-menu {
+  position: absolute;
+  right: 2rem;
+  top: 3.5rem;
+  background: var(--gray-200);
+  border: 1px solid var(--gray-400);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+#theme-menu.hidden {
+  display: none;
+}
+#theme-menu button {
+  background: none;
+  border: none;
+  padding: 0.75rem 0.75rem; /* réduit le padding horizontal */
+  text-align: left;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  min-width: 0;
+}
+#theme-menu button:hover {
+  background: var(--gray-300);
+}
+#theme-menu button.selected {
+  font-weight: bold;
+  background: var(--gray-400);
+}
+body.dark-mode #theme-menu {
+  background: var(--gray-800);
+  border-color: var(--gray-700);
+}
+body.dark-mode #theme-menu button {
+  color: var(--text-light);
+}
+body.dark-mode #theme-menu button:hover {
+  background: var(--gray-700);
+}
+body.dark-mode #theme-menu button.selected {
+  background: var(--gray-700);
+}
+
+/* ===================== */
+/*      MAIN CONTENT     */
+/* ===================== */
+#main-content {
+  width: 100%;
+}
+
+/* ----------- Recherche ville ----------- */
+#search-section {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#postal-code {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 80%;
+  max-width: 400px;
+  border: 1px solid var(--gray-400);
+  border-radius: 5px;
+}
+
+/* Liste des villes */
+#city-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#city-list li {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--gray-300);
+  cursor: pointer;
+  background-color: var(--gray-100);
+  border-radius: 5px;
+  margin: 0.25rem auto;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--text-dark);
+  transition: background 0.2s;
+}
+
+#city-list li:hover {
+  background-color: var(--gray-200);
+}
+
+body.dark-mode #city-list li {
+  color: var(--text-light);
+  background-color: var(--gray-800);
+  border-bottom: 1px solid var(--gray-700);
+}
+body.dark-mode #city-list li:hover {
+  background-color: var(--gray-700);
+}
+
+/* ----------- Section météo ----------- */
+#weather-section {
+  padding: 2rem;
+}
+
+/* Sélecteur de jours */
+#day-selector {
+  margin-bottom: 1rem;
+}
+
+/* Cartes météo */
+#forecast-cards-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+}
+
+.forecast-card {
+  min-width: 250px;
+  background: var(--gray-200);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1.5px solid var(--gray-300);
+  box-shadow: none;
+  color: var(--text-dark);
+}
+
+body.dark-mode .forecast-card {
+  background: var(--gray-800);           /* fond plus clair pour ressortir */
+  border: 1.5px solid var(--gray-500);   /* bordure claire pour contraste */
+  color: var(--text-light);
+}
+
+/* Options d'infos météo */
+#info-options {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+#info-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ===================== */
+/*         SLIDER        */
+/* ===================== */
+#day-range {
+  -webkit-appearance: none;
+  width: 220px;
+  height: 6px;
+  background: var(--gray-300);
+  border-radius: 3px;
+  outline: none;
+  margin-bottom: 0.5rem;
+  transition: background 0.3s;
+}
+#day-range:focus {
+  background: var(--gray-400);
+}
+#day-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gray-600);
+  border: 2px solid var(--gray-400);
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s;
+}
+#day-range:focus::-webkit-slider-thumb {
+  background: var(--gray-700);
+  border: 2px solid var(--gray-500);
+}
+#day-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gray-600);
+  border: 2px solid var(--gray-400);
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s;
+}
+#day-range:focus::-moz-range-thumb {
+  background: var(--gray-700);
+  border: 2px solid var(--gray-500);
+}
+#day-range::-ms-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gray-600);
+  border: 2px solid var(--gray-400);
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s;
+}
+#day-range:focus::-ms-thumb {
+  background: var(--gray-700);
+  border: 2px solid var(--gray-500);
+}
+#day-range::-webkit-slider-thumb:hover {
+  background: var(--gray-700);
+}
+#day-range::-ms-fill-lower {
+  background: var(--gray-300);
+}
+#day-range::-ms-fill-upper {
+  background: var(--gray-300);
+}
+#day-range:focus::-ms-fill-lower {
+  background: var(--gray-400);
+}
+#day-range:focus::-ms-fill-upper {
+  background: var(--gray-400);
+}
+#day-range::-moz-range-track {
+  background: var(--gray-300);
+  height: 6px;
+  border-radius: 3px;
+}
+#day-range::-ms-tooltip {
+  display: none;
+}
+
+/* Slider en mode sombre */
+body.dark-mode #day-range,
+body.dark-mode #day-range::-webkit-slider-thumb,
+body.dark-mode #day-range::-moz-range-thumb,
+body.dark-mode #day-range::-ms-thumb {
+  background: var(--gray-700);
+}
+body.dark-mode #day-range::-webkit-slider-thumb,
+body.dark-mode #day-range::-moz-range-thumb,
+body.dark-mode #day-range::-ms-thumb {
+  background: var(--gray-400);
+  border: 2px solid var(--gray-700);
+}
+
+/* ===================== */
+/*        FOOTER         */
+/* ===================== */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--gray-200);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+body.dark-mode footer {
+  background-color: var(--gray-800);
+}
+footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ===================== */
+/*       UTILITAIRES     */
+/* ===================== */
+.hidden {
+  display: none !important;
+}
+
+/* ===================== */
+/*      RESPONSIVE       */
+/* ===================== */
+@media (max-width: 768px) {
+  #forecast-cards-container {
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+}

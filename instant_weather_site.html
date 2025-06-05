@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instant Weather</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+  <header id="main-header">
+    <div class="logo">Instant Weather</div>
+    <div class="header-controls">
+      <button id="theme-toggle" aria-label="Changer le thème">
+        <i class="bi bi-moon-stars-fill"></i>
+      </button>
+      <div id="theme-menu" class="hidden">
+        <button data-theme="auto">Thème automatique</button>
+        <button data-theme="light">Thème clair</button>
+        <button data-theme="dark">Thème sombre</button>
+      </div>
+      <a href="https://github.com/florianvigneux" target="_blank" aria-label="GitHub de Florian">
+        <i class="bi bi-github"></i>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="search-section">
+      <input type="text" id="postal-code" placeholder="Entrez un code postal" aria-label="Code postal" />
+      <ul id="city-list" aria-label="Liste des villes"></ul>
+    </section>
+    <section id="weather-section" class="hidden">
+      <aside id="day-selector">
+        <input type="range" min="1" max="7" value="1" id="day-range" aria-label="Nombre de jours de prévisions" />
+        <label for="day-range">Prévisions : <span id="day-count">1</span> jour(s)</label>
+      </aside>
+      <div id="forecast-cards-container" aria-live="polite"></div>
+      <div id="info-options">
+        <label><input type="checkbox" value="coords"> Coordonnées</label>
+        <label><input type="checkbox" value="rain"> Cumul pluie</label>
+        <label><input type="checkbox" value="wind"> Vent moyen</label>
+        <label><input type="checkbox" value="winddir"> Direction vent</label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; Florian Vigneux - Tous droits réservés. Icônes par <a href="https://icons8.com" target="_blank">Icons8</a>.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
