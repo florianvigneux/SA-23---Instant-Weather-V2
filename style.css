@@ -272,6 +272,7 @@ body.dark-mode .forecast-card {
 /*         SLIDER        */
 /* ===================== */
 #day-range {
+  appearance: none;
   -webkit-appearance: none;
   width: 220px;
   height: 6px;
