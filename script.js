@@ -15,18 +15,6 @@ let currentCityCode = null;
 let currentForecast = [];
 let userTheme = null;
 
-// =================== Image de fond ===================
-window.addEventListener("DOMContentLoaded", () => {
-  const bg = document.getElementById('bg-image');
-  if (!bg) return;
-  const keywords = [
-    "weather", "rain", "storm", "clouds", "fog", "snow", "sunny", "wind", "thunderstorm", "sky"
-  ];
-  const random = keywords[Math.floor(Math.random() * keywords.length)];
-  const url = `https://source.unsplash.com/random/1600x900/?${random},weather`;
-  bg.style.backgroundImage = `url('${url}')`;
-});
-
 // =================== Thème ===================
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 function applyTheme() {
@@ -161,7 +149,7 @@ function updateForecast() {
   }
 }
 
-// =================== Slider & Options ===================
+// =================== Slider et options ===================
 dayRange.addEventListener("input", updateForecast);
 document.querySelectorAll("#info-options input").forEach(checkbox => {
   checkbox.addEventListener("change", updateForecast);
